@@ -8,7 +8,7 @@ function Intro(props) {
   return (
     <IntroSection>
       <ReactPlayer
-        playing={false}
+        playing={true}
         loop={true}
         width="100%"
         height="100%"

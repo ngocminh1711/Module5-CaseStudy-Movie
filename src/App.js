@@ -1,17 +1,12 @@
 import './App.css';
-import Intro from './components/Intro/Intro';
-import Navbar from './components/Navbar/Navbar';
-import AllContents from './components/Content/AllContents';
-import MovieDetail from './components/movieDetail/MovieDetail';
+import {Routes, Route} from 'react-router-dom';
+import Home from './home/Home';
 
 function App() {
   return(
-    <>
-      <Navbar />
-      <Intro />
-      <AllContents />
-      <MovieDetail />
-    </>   
+    <Routes>
+      <Route path='/' element={<Home />} />
+    </Routes>
   )
 }
 

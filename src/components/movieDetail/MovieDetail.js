@@ -1,33 +1,64 @@
 import styled, { keyframes } from "styled-components";
+import { useDispatch } from "react-redux";
+import { clearMovieDetail } from "../../features/movieSlice";
+import Button from "@mui/material/Button";
+import {SlClose} from 'react-icons/sl';
 
-const showModal = true;
+function MovieDetail(props) {
+  const { movie, showModal } = props;
+  const dispatch = useDispatch();
 
-function MovieDetail() {
+  const handleCloseBackdrop = () => {
+    dispatch(clearMovieDetail());
+  };
+
   return (
     <>
-      <MoviesDetailModel>
-        <div className={`backdrop ${showModal ? 'showBackdrop' : 'hideBackdrop'}`}></div>
-        <div
-          className={`modal ${showModal ? 'showModal' : 'hideModal'}`}
-          style={{
-            backgroundImage: `url(https://gstatic.gvn360.com/2020/07/69-e1578507863403.jpg)`,
-            backgroundSize: "cover",
-          }}
-        >
-          <div className="container">
-            <div className="movieInfo">
-              <h1 className="movieTitle">Name</h1>
-              <p className="statistical">
-                <span className="rating">Rating</span>
-                <span className="popularity">Popularity</span>
-              </p>
-              <p className="releaseDate">Release date : 12313</p>
-              <p className="runTime">Runtime : asdas</p>
-              <p className="overview"> Description </p>
+      {movie &&
+        movie.map((movie, index) => (
+          <MoviesDetailModel key={index}>
+            <div
+              className={`backdrop ${
+                showModal ? "showBackdrop" : "hideBackdrop"
+              }`}
+              onClick={handleCloseBackdrop}
+            ></div>
+            <div
+              className={`modal ${showModal ? "showModal" : "hideModal"}`}
+              style={{
+                backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.backdrop_path})`,
+                backgroundSize: "cover",
+              }}
+            >
+              
+              <div className="container">
+              <SlClose className="btnClose" onClick={handleCloseBackdrop}/>
+                <div className="movieInfo">
+                
+                  <h1 className="movieTitle">{movie.title}</h1>
+                  <p className="statistical">
+                    <span className="rating">Vote: {movie.vote_count}</span>
+                    <span className="popularity">
+                      Popularity: {movie.popularity}
+                    </span>
+                  </p>
+                  <p className="releaseDate">
+                    Release date : {movie.release_date}
+                  </p>
+                  <p className="runTime">Runtime : asdas</p>
+                  <p className="overview">
+                    <strong style={{ color: "red" }}>Overview: </strong>
+                    {movie.overview}{" "}
+                  </p>
+                  <br />
+                  <Button variant="contained" color="error">
+                    Contained
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </MoviesDetailModel>
+          </MoviesDetailModel>
+        ))}
     </>
   );
 }
@@ -37,7 +68,8 @@ export default MovieDetail;
 const fadeIn = keyframes`
   0%: {background: rgba(0, 0, 0, 0)};
   100%: {background: rgba(0, 0, 0, 0.6)};
-`
+`;
+
 
 const MoviesDetailModel = styled.div`
   .backdrop {
@@ -64,7 +96,7 @@ const MoviesDetailModel = styled.div`
     top: 25%;
     left: 0;
     z-index: 300;
-    height: 60%;
+    height: 65%;
     width: 100%;
     margin: 0 auto;
     color: var(--color-white);
@@ -112,8 +144,20 @@ const MoviesDetailModel = styled.div`
         );
       }
 
+      .btnClose {
+        margin-top: 10px;
+        margin-left: 1280px;
+        width: 8%;
+        height: 8%;
+
+        &:hover {
+          transform: scale(1.5);
+          color: red;
+        }
+      }
+
       .movieInfo {
-        width: 65%;
+        width: 90%;
         height: 100%;
         padding-left: 24px;
         color: var(--color-white);
@@ -154,7 +198,6 @@ const MoviesDetailModel = styled.div`
 
           @media screen and (max-width: 600px) {
             font-size: 14px;
-            
           }
         }
       }

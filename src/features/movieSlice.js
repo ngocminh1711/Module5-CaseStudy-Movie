@@ -11,12 +11,15 @@ const moviesSlice = createSlice({
   initialState: initialState,
   reducers: {
     getMovieDetail : (state, action) => {
-      state.movieDetail.push(action.payload)
+      state.movieDetail.push(action.payload);
+    },
+    clearMovieDetail : (state, action) => {
+      state.movieDetail = [];
     }
   },
 });
 
-export const {getMovieDetail} = moviesSlice.actions;
+export const {getMovieDetail, clearMovieDetail} = moviesSlice.actions;
 export default moviesSlice.reducer;
 
 

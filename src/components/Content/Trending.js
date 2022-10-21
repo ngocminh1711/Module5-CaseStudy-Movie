@@ -3,7 +3,8 @@ import {FiChevronLeft, FiChevronRight} from 'react-icons/fi'
 import { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import {SmoothHorizontalScrolling} from '../../utils';
-import {useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux';
+import { getMovieDetail } from "../../features/movieSlice";
 
 
 function Trending(props) {
@@ -11,10 +12,10 @@ function Trending(props) {
   const [movie, setMovie] = useState([]);
   const sliderRef = useRef();
   const movieRef = useRef();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleGetDetailMovie = (item) => {
-    
+    dispatch(getMovieDetail(item))
   }
 
 
@@ -54,7 +55,7 @@ function Trending(props) {
             gridTemplateColumns: `repeat(${movie.length}, 300px)`
         }}>
           {movie && movie.map((item, index) => (
-            <div key={index} className="moviesItems" ref={movieRef} onClick={handleGetDetailMovie(item)}>
+            <div key={index} className="moviesItems" ref={movieRef} onClick={() => handleGetDetailMovie(item)}>
               <img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`} alt="" />
               <div className="moviesName">{item.title}</div>
             </div>

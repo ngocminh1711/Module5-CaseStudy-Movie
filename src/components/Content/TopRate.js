@@ -143,7 +143,7 @@ const MoviesRowContainer = styled.div`
         transition: all 0.3s linear;
     }
   }
-`;
+  `;
 
 const MoviesSlider = styled.div`
   display: grid;

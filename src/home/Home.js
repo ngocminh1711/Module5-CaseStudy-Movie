@@ -4,6 +4,7 @@ import AllContents from '../components/Content/AllContents';
 import MovieDetail from '../components/movieDetail/MovieDetail';
 import { useSelector } from "react-redux";
 import ScrollTop from "../components/ScrollTop/ScrollTop";
+import SearchMovie from "../components/SearchMovie/SearchMovie";
 
 function Home(props) {
     const movieDetail = useSelector((state) => state.movie.movieDetail);

@@ -18,10 +18,10 @@ function Intro(props) {
         className="videoIntro"
       />
       <div className="infoIntro">
-        <h1 className="heading">Netflix Elite</h1>
+        <h1 className="heading">359 Flix Elite</h1>
         <p className="overview">
           {
-            "Netflix Elite Launch Campaign Director: Fernanda Weinfeld Production Company: Awake Film Agency: Akqa"
+            "359 Flix Elite Launch Campaign Director: Fernanda Weinfeld Production Company: Awake Film Agency: Akqa"
           }
         </p>
       </div>

@@ -38,6 +38,7 @@ function ScrollTop () {
                         width: "50px",
                         fontSize: "80px",
                     }}
+                    fontSizeLarge
                 />
 
             )}

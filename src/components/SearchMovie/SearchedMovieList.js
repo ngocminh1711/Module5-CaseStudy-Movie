@@ -4,15 +4,15 @@ import Intro from "../Intro/Intro";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {SmoothHorizontalScrolling} from "../../utils";
 import {useRef, useState} from "react";
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
+import MovieNotFound from "../MovieNotFound/MovieNotFound";
 
 
 function SearchedMovieList() {
     const [searchedMovie, setSearchedMovie] = useState()
 
-    const movies = useSelector((state) => state.search.searchedMovie )
-    console.log(movies)
+    const movies = useSelector((state) => state.search.searchedMovie)
 
 
     const sliderRef = useRef();
@@ -20,45 +20,48 @@ function SearchedMovieList() {
 
     const handleScrollLeft = () => {
         let scrollLeft = sliderRef.current.scrollLeft;
-        if(scrollLeft > 0){
-            SmoothHorizontalScrolling(sliderRef.current, 250, -movieRef.current.clientWidth*2, sliderRef.current.scrollLeft)
+        if (scrollLeft > 0) {
+            SmoothHorizontalScrolling(sliderRef.current, 250, -movieRef.current.clientWidth * 2, sliderRef.current.scrollLeft)
         }
     };
 
     const handleScrollRight = () => {
         const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
         let scrollLeft = sliderRef.current.scrollLeft;
-        if(scrollLeft < maxScrollLeft){
-            SmoothHorizontalScrolling(sliderRef.current, 250, movieRef.current.clientWidth*2, sliderRef.current.scrollLeft)
+        if (scrollLeft < maxScrollLeft) {
+            SmoothHorizontalScrolling(sliderRef.current, 250, movieRef.current.clientWidth * 2, sliderRef.current.scrollLeft)
         }
     };
+    console.log(movies)
 
     return (
         <>
             <Navbar/>
             <Intro/>
-            <>
-                <MoviesRowContainer>
-                    <h1 className="heading">Results Searched</h1>
-                    <MoviesSlider ref={sliderRef} style={{
-                        gridTemplateColumns: `repeat(${movies.length}, 300px)`
-                    }}>
-                        { movies.map(movie => (
-                            <div key={movie._id} className="moviesItems" ref={movieRef}>
-                                <img src={movie.backdrop_path} alt="" />
-                                <div className="moviesName">{movie.original_title}</div>
-                            </div>
-                        )) }
+            { movies.length === 0 ? <div>
+                    <MovieNotFound/>
+            </div> :
+            <MoviesRowContainer>
+                <h1 className="heading">Results Searched</h1>
+                <MoviesSlider ref={sliderRef} style={{
+                    gridTemplateColumns: `repeat(${movies.length}, 300px)`
+                }}>
+                    {movies.map(movie => (
+                        <div key={movie._id} className="moviesItems" ref={movieRef}>
+                            <img src={movie.backdrop_path} alt=""/>
+                            <div className="moviesName">{movie.original_title}</div>
+                        </div>
+                    ))}
 
-                    </MoviesSlider>
-                    <div className="btnLeft" onClick={handleScrollLeft}>
-                        <FiChevronLeft />
-                    </div>
-                    <div className="btnRight" onClick={handleScrollRight}>
-                        <FiChevronRight />
-                    </div>
-                </MoviesRowContainer>
-            </>
+                </MoviesSlider>
+                <div className="btnLeft" onClick={handleScrollLeft}>
+                    <FiChevronLeft/>
+                </div>
+                <div className="btnRight" onClick={handleScrollRight}>
+                    <FiChevronRight/>
+                </div>
+            </MoviesRowContainer>
+            }
         </>
     )
 
@@ -91,18 +94,18 @@ const MoviesRowContainer = styled.div`
     transform: translateY(-20%);
 
     &:hover {
-        background-color : rbg(0, 0, 0, 0.8);
+      background-color: rbg(0, 0, 0, 0.8);
     }
 
     &:hover svg {
-        opacity: 1;
-        transform: scale(1.2);
+      opacity: 1;
+      transform: scale(1.2);
     }
 
     svg {
-        opacity: 0.7;
-        font-size: 50px;
-        transition: all 0.3s linear;
+      opacity: 0.7;
+      font-size: 50px;
+      transition: all 0.3s linear;
     }
   }
 
@@ -120,18 +123,18 @@ const MoviesRowContainer = styled.div`
     transform: translateY(-20%);
 
     &:hover {
-        background-color : rbg(0, 0, 0, 0.8);
+      background-color: rbg(0, 0, 0, 0.8);
     }
 
     &:hover svg {
-        opacity: 1;
-        transform: scale(1.2);
+      opacity: 1;
+      transform: scale(1.2);
     }
 
     svg {
-        opacity: 0.7;
-        font-size: 50px;
-        transition: all 0.3s linear;
+      opacity: 0.7;
+      font-size: 50px;
+      transition: all 0.3s linear;
     }
   }
 `;
@@ -178,17 +181,17 @@ const MoviesSlider = styled.div`
     }
 
     .moviesName {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 4px;
-        text-align: center;
-        font-size: 14px;
-        background-color: rbga(0,0,0,0.5);
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 4px;
+      text-align: center;
+      font-size: 14px;
+      background-color: rbga(0, 0, 0, 0.5);
     }
   }
-  `
+`
 
 
 export default SearchedMovieList;

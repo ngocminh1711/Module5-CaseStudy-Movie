@@ -4,6 +4,7 @@ import axios from "axios";
 
 const initialState = {
   movieDetail : [],
+  playVideo : '',
 };
 
 const moviesSlice = createSlice({
@@ -15,11 +16,14 @@ const moviesSlice = createSlice({
     },
     clearMovieDetail : (state, action) => {
       state.movieDetail = [];
+    },
+    getPlayVideo : (state, action) => {
+      state.playVideo = action.payload
     }
   },
 });
 
-export const {getMovieDetail, clearMovieDetail} = moviesSlice.actions;
+export const {getMovieDetail, clearMovieDetail, getPlayVideo} = moviesSlice.actions;
 export default moviesSlice.reducer;
 
 

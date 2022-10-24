@@ -14,7 +14,7 @@ function Home(props) {
       <Intro />
       <AllContents />
         <ScrollTop/>
-      <MovieDetail movie={movieDetail} showModal={movieDetail ? true : false } />
+      <MovieDetail movies={movieDetail} showModal={movieDetail ? true : false } />
     </>   
   )
 };

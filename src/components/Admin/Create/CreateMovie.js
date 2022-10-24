@@ -194,14 +194,7 @@ function CreateMovie() {
                                         }}
                                     >
                                         {genres.map(genre =>
-
-                                            <MenuItem
-                                                key={genre._id}
-                                                value={genre._id}
-                                            >
-                                                {genre.name}
-                                            </MenuItem>
-                                        )}
+                                            <MenuItem key={genre._id} value={genre._id}>{genre.name}</MenuItem>)}
                                     </Select>
                                 </FormControl>
 

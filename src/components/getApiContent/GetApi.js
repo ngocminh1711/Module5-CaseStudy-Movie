@@ -9,3 +9,8 @@ export default async function GetTrendingMovies(){
 };
 
 
+export default async function GetMyMovie () {
+    return await axios.get('https://localhost:8000/api/movie')
+}
+
+

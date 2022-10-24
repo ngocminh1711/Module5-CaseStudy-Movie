@@ -2,9 +2,6 @@ import {useEffect, useState} from "react";
 import {FaSearch} from "react-icons/fa";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import Button from "@mui/material/Button";
-import {IconButton} from "@mui/material";
-import {SearchOutlined} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
 import {searchMovie} from "../../features/search/searchSlice";
 

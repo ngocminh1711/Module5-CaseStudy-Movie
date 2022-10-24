@@ -7,27 +7,28 @@ import {useDispatch} from 'react-redux';
 import { getMovieDetail } from "../../features/movieSlice";
 
 
-function Content(props) {
+function TopRate(props) {
 
-  const [movie, setMovie] = useState([]);
+  const [movieTopRate, setMovieTopRate] = useState([]);
   const sliderRef = useRef();
   const movieRef = useRef();
   const dispatch = useDispatch();
 
+  const handleGetDetailMovie = (movie) => {
+    dispatch(getMovieDetail(movie))
+  }
+
 
   const getApiMovie = async () => {
-    return await axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=d03ed2a09ebe889d52f1be1bf9b8e3b5&language=en-US&page=1');
+    return await axios.get('http://localhost:8000/api/rating');
   };
 
   useEffect(()=>{
     getApiMovie().then(res => {
-      setMovie(res.data.results)
-    })
-  },[]);
+      setMovieTopRate(res.data.movies)
 
-  const handleGetDetailMovie = (item) => {
-    dispatch(getMovieDetail(item))
-  }
+    })
+  }, []);
 
 
   const handleScrollRight = () => {
@@ -48,30 +49,30 @@ function Content(props) {
 
 
   return (
-    <>
-      <MoviesRowContainer>
-        <h1 className="heading">{props.title}</h1>
-        <MoviesSlider ref={sliderRef} style={{
-            gridTemplateColumns: `repeat(${movie.length}, 300px)`
-        }}>
-          {movie && movie.map((item, index) => (
-            <div key={index} className="moviesItems" ref={movieRef} onClick={() => handleGetDetailMovie(item)}>
-              <img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`} alt="" />
-              <div className="moviesName">{item.title}</div>
-            </div>
-          ))}
-        </MoviesSlider>
-        <div className="btnLeft" onClick = {handleScrollLeft}>
+      <>
+        <MoviesRowContainer>
+          <h1 className="heading">{props.title}</h1>
+          <MoviesSlider ref={sliderRef} style={{
+            gridTemplateColumns: `repeat(${movieTopRate.length}, 300px)`
+          }}>
+            {movieTopRate && movieTopRate.map((movie, index) => (
+                <div key={index} className="moviesItems" ref={movieRef} onClick={() => handleGetDetailMovie(movie)}>
+                  <img src={movie.backdrop_path} alt="" />
+                  <div className="moviesName">{movie.original_title}</div>
+                </div>
+            ))}
+          </MoviesSlider>
+          <div className="btnLeft" onClick={handleScrollLeft}>
             <FiChevronLeft />
-        </div>
-        <div className="btnRight" onClick = {handleScrollRight}>
+          </div>
+          <div className="btnRight" onClick={handleScrollRight}>
             <FiChevronRight />
-        </div>
-      </MoviesRowContainer>
-    </>
+          </div>
+        </MoviesRowContainer>
+      </>
   );
 }
-export default Content;
+export default TopRate;
 
 const MoviesRowContainer = styled.div`
   background-color: var(--color-background);

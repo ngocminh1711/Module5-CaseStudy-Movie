@@ -1,5 +1,6 @@
-import TopRate from "./TopRate";
+import TopRate from "./TopRate.js"
 import Trending from "./Trending";
+import MyMovie from "./MyMovie";
 
 
 function AllContents() {
@@ -7,6 +8,7 @@ function AllContents() {
         <>
             <TopRate title='Top Rate Movie' />
             <Trending title='Popular Movie' />
+            <MyMovie title='My Movie' />
 
         </>  
     )

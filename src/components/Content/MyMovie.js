@@ -7,73 +7,71 @@ import {useDispatch} from 'react-redux';
 import { getMovieDetail } from "../../features/movieSlice";
 
 
-function Trending(props) {
+function MyMovie(props) {
 
-  const [movies, setMovie] = useState([]);
-  const sliderRef = useRef();
-  const movieRef = useRef();
-  const dispatch = useDispatch();
+    const [movie, setMovie] = useState([]);
+    const sliderRef = useRef();
+    const movieRef = useRef();
+    const dispatch = useDispatch();
 
-  const handleGetDetailMovie = (movie) => {
-    dispatch(getMovieDetail(movie))
-  }
+    const getApiMovie = async () => {
+        return await axios.get('http://localhost:8000/api/movie');
+    };
 
-
-  const getApiMovie = async () => {
-    return await axios.get('http://localhost:8000/api/trendy');
-  };
-
-  useEffect(()=>{
-    getApiMovie().then(res => {
-      console.log(res)
-      setMovie(res.data.movies)
-
-    })
-  }, []);
+    useEffect(() => {
+        getApiMovie().then(res => {
+            setMovie(res.data.movies)
+        })
+    },[]);
 
 
-  const handleScrollRight = () => {
-    const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
-    let scrollLeft = sliderRef.current.scrollLeft;
-    if(scrollLeft < maxScrollLeft){
-      SmoothHorizontalScrolling(sliderRef.current, 250, movieRef.current.clientWidth*2, sliderRef.current.scrollLeft)
+    const handleGetDetailMovie = (item) => {
+        dispatch(getMovieDetail(item))
     }
-  };
 
 
-  const handleScrollLeft = () => {
-    let scrollLeft = sliderRef.current.scrollLeft;
-    if(scrollLeft > 0){
-      SmoothHorizontalScrolling(sliderRef.current, 250, -movieRef.current.clientWidth*2, sliderRef.current.scrollLeft)
-    }
-  };
+    const handleScrollRight = () => {
+        const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
+        let scrollLeft = sliderRef.current.scrollLeft;
+        if(scrollLeft < maxScrollLeft){
+            SmoothHorizontalScrolling(sliderRef.current, 250, movieRef.current.clientWidth*2, sliderRef.current.scrollLeft)
+        }
+    };
 
 
-  return (
-    <>
-      <MoviesRowContainer>
-        <h1 className="heading">{props.title}</h1>
-        <MoviesSlider ref={sliderRef} style={{
-            gridTemplateColumns: `repeat(${movies.length}, 300px)`
-        }}>
-          {movies && movies.map((movie, index) => (
-            <div key={index} className="moviesItems" ref={movieRef} onClick={() => handleGetDetailMovie(movie)}>
-              <img src={movie.backdrop_path} alt="" />
-              <div className="moviesName">{movie.original_title}</div>
-            </div>
-          ))}
-        </MoviesSlider>
-        <div className="btnLeft" onClick={handleScrollLeft}>
-            <FiChevronLeft />
-        </div>
-        <div className="btnRight" onClick={handleScrollRight}>
-            <FiChevronRight />
-        </div>
-      </MoviesRowContainer>
-    </>
-  );
+    const handleScrollLeft = () => {
+        let scrollLeft = sliderRef.current.scrollLeft;
+        if(scrollLeft > 0){
+            SmoothHorizontalScrolling(sliderRef.current, 250, -movieRef.current.clientWidth*2, sliderRef.current.scrollLeft)
+        }
+    };
+
+
+   return (
+        <>
+            <MoviesRowContainer>
+                <h1 className="heading">{props.title}</h1>
+                <MoviesSlider ref={sliderRef} style={{
+                    gridTemplateColumns: `repeat(${movie.length}, 300px)`
+                }}>
+                    {movie && movie.map((item, index) => (
+                        <div key={index} className="moviesItems" ref={movieRef} onClick={() => handleGetDetailMovie(item)}>
+                            <img src={item.backdrop_path} alt="" />
+                            <div className="moviesName">{item.original_title}</div>
+                        </div>
+                    ))}
+                </MoviesSlider>
+                <div className="btnLeft" onClick = {handleScrollLeft}>
+                    <FiChevronLeft />
+                </div>
+                <div className="btnRight" onClick = {handleScrollRight}>
+                    <FiChevronRight />
+                </div>
+            </MoviesRowContainer>
+        </>
+    );
 }
-export default Trending;
+export default MyMovie;
 
 const MoviesRowContainer = styled.div`
   background-color: var(--color-background);
@@ -145,7 +143,7 @@ const MoviesRowContainer = styled.div`
         transition: all 0.3s linear;
     }
   }
-`;
+  `;
 
 const MoviesSlider = styled.div`
   display: grid;
@@ -196,7 +194,7 @@ const MoviesSlider = styled.div`
         padding: 4px;
         text-align: center;
         font-size: 14px;
-        background-color: rbga(0,0,0,0.5);
+        background-color: rbga(0,0,0, 1.4);
     }
   }
 `;

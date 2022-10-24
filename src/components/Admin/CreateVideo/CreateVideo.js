@@ -47,9 +47,9 @@ function CreateVideo () {
         <>
             <p>{percent}"%"</p>
             <input
-                type="file"
-                onChange={handleChangeVideo}
-            />
+            type="file"
+            onChange={handleChangeVideo}
+        />
 
             <Button
                 variant="contained"

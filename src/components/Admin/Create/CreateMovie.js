@@ -16,6 +16,7 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import CreateVideo from "../CreateVideo/CreateVideo";
 import {useSelector} from "react-redux";
+import CreateImage from "../CreateImage/CreateImage";
 
 
 function CreateMovie() {
@@ -40,8 +41,10 @@ function CreateMovie() {
     const [genres, setGenres] = useState([])
     const navigate = useNavigate();
     const linkVideo =  useSelector(state => state.createVideo.videoURL)
+    const linkBackdrop = useSelector(state => state.createImage.backdropURL)
+    const linkDetail_image = useSelector(state => state.createImage.detailURL)
 
-    console.log(linkVideo)
+
 
 
 
@@ -65,8 +68,8 @@ function CreateMovie() {
         e.preventDefault();
         setLoading(true);
         let data = {
-            backdrop_path: form.backdrop_path,
-            detail_image: form.detail_image,
+            backdrop_path: linkBackdrop,
+            detail_image: linkDetail_image,
             original_language: form.original_language,
             original_title: form.original_title,
             overview: form.overview,
@@ -207,20 +210,7 @@ function CreateMovie() {
                                 </div>
 
                                 <div style={{textAlign: 'center'}}>
-                                    <IconButton
-                                        color="primary"
-                                        aria-label="upload picture"
-                                        component="label"
-                                        // onClick={handleUploadImage}
-                                    >
-                                        <label>BackDrop_Path</label>
-                                        <input
-                                            hidden accept="image/*"
-                                            type="file"
-                                            // onChange={handleChangeImage}
-                                        />
-                                        <PhotoCamera/>
-                                    </IconButton>
+                                   <CreateImage/>
 
                                     <IconButton color="primary" aria-label="upload picture" component="label">
                                         <label>Detail Image</label>

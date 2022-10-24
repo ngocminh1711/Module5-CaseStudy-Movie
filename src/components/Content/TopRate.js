@@ -22,8 +22,8 @@ function Content(props) {
   useEffect(()=>{
     getApiMovie().then(res => {
       setMovie(res.data.results)
-    },[])
-  });
+    })
+  },[]);
 
   const handleGetDetailMovie = (item) => {
     dispatch(getMovieDetail(item))

@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const initialState = {
-  movieDetail : []
+  movieDetail : [],
 };
 
 const moviesSlice = createSlice({

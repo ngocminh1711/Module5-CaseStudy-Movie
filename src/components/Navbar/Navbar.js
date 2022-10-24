@@ -1,38 +1,43 @@
 import styled from "styled-components";
 import logo from "../../assets/img/395-logo.png";
-import { FaSearch } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import {FaSearch} from "react-icons/fa";
+import {useEffect, useState} from "react";
+import SearchMovie from "../SearchMovie/SearchMovie";
+import {Outlet} from "react-router-dom"
 
 function Navbar(props) {
-  const [scrollY, setScrollY] = useState(0);
+    const [scrollY, setScrollY] = useState(0);
 
-  const handleScrollY = () => {
-    const scroll = window.scrollY || document.documentElement.scrollTop;
-    setScrollY(scroll);
-  };
-
-  useEffect(() => {
-    handleScrollY();
-    window.addEventListener("scroll", handleScrollY);
-    return () => {
-      window.removeEventListener("scroll", handleScrollY);
+    const handleScrollY = () => {
+        const scroll = window.scrollY || document.documentElement.scrollTop;
+        setScrollY(scroll);
     };
-  }, []);
 
-  return (
-    <Navigation style={scrollY < 5 ? {backgroundColor : 'transparent'} : {backgroundColor : 'var(--color-background)'}}>
-      <div className="navContainer">
-        <div className="logo">
-          <img src={logo} alt="" />
-        </div>
-        <div className="navSearch">
-          <FaSearch className="iconSearch" />
-          <input type="text" placeholder="Write something ..." />
-        </div>
-      </div>
-    </Navigation>
-  );
+    useEffect(() => {
+        handleScrollY();
+        window.addEventListener("scroll", handleScrollY);
+        return () => {
+            window.removeEventListener("scroll", handleScrollY);
+        };
+    }, []);
+
+    return (
+        <Navigation
+            style={scrollY < 5 ? {backgroundColor: 'transparent'} : {backgroundColor: 'var(--color-background)'}}>
+            <div className="navContainer">
+                <div className="logo">
+                    <img src={logo} alt=""/>
+                </div>
+                <div>
+                    <SearchMovie/>
+                </div>
+
+            </div>
+
+        </Navigation>
+    );
 }
+
 export default Navbar;
 
 const Navigation = styled.div`
@@ -55,10 +60,12 @@ const Navigation = styled.div`
       flex-direction: column;
       height: 100px;
     }
+
     .logo {
       width: 120px;
       height: 20;
       cursor: pointer;
+
       img {
         width: 100%;
       }
@@ -69,6 +76,7 @@ const Navigation = styled.div`
       padding-right: 20px;
       display: flex;
       justify-content: flex-end;
+
       &:hover .iconSearch {
         color: var(--color-white);
       }
@@ -93,6 +101,7 @@ const Navigation = styled.div`
         transition: width 0.5s;
         cursor: pointer;
         opacity: 0;
+
         &:focus {
           padding-left: 26px;
           width: 300px;

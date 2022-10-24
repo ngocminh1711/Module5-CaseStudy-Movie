@@ -1,10 +1,10 @@
-import {PhotoCamera} from "@mui/icons-material";
+
 import {
     Alert,
     Box,
     CircularProgress,
     FormControl, Grid,
-    IconButton, InputAdornment,
+    InputAdornment,
     InputLabel,
     MenuItem, OutlinedInput, Paper,
     Select,
@@ -195,7 +195,12 @@ function CreateMovie() {
                                     >
                                         {genres.map(genre =>
 
-                                            <MenuItem key={genre._id} value={genre._id}>{genre.name}</MenuItem>
+                                            <MenuItem
+                                                key={genre._id}
+                                                value={genre._id}
+                                            >
+                                                {genre.name}
+                                            </MenuItem>
                                         )}
                                     </Select>
                                 </FormControl>
@@ -203,20 +208,12 @@ function CreateMovie() {
 
                                 <div style={{textAlign: 'center'}}>
                                     <CreateVideo/>
-                                    <Button variant="contained" component="label" style={{marginLeft: '20px'}}>
-                                        Upload Trailer
-                                        <input hidden type="file"/>
-                                    </Button>
                                 </div>
 
                                 <div style={{textAlign: 'center'}}>
                                    <CreateImage/>
 
-                                    <IconButton color="primary" aria-label="upload picture" component="label">
-                                        <label>Detail Image</label>
-                                        <input hidden accept="image/*" type="file"/>
-                                        <PhotoCamera/>
-                                    </IconButton>
+
                                 </div>
 
                                 <div style={{textAlign: 'center'}}>

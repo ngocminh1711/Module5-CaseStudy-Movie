@@ -1,4 +1,4 @@
-import {IconButton} from "@mui/material";
+
 import {PhotoCamera} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import {useState} from "react";
@@ -82,6 +82,7 @@ function CreateImage() {
                 <input
                     type="file"
                     onChange={handleChangeBackdrop}
+                    defaultValue=''
                 />
                 <Button
                     variant="contained"
@@ -99,6 +100,7 @@ function CreateImage() {
                 <input
                     type="file"
                     onChange={handleChangeDetail}
+                    defaultValue=''
                 />
                 <Button
                     variant="contained"

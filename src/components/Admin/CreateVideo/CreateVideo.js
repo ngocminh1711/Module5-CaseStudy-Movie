@@ -49,6 +49,7 @@ function CreateVideo () {
             <input
             type="file"
             onChange={handleChangeVideo}
+            defaultValue=''
         />
 
             <Button

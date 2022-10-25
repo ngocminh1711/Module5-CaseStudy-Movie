@@ -14,13 +14,15 @@ function Trending(props) {
   const movieRef = useRef();
   const dispatch = useDispatch();
 
+  const PORT = process.env.PORT || 8000;
+
   const handleGetDetailMovie = (movie) => {
     dispatch(getMovieDetail(movie))
   }
 
 
   const getApiMovie = async () => {
-    return await axios.get('http://localhost:8000/api/trendy');
+    return await axios.get(`http://localhost:${PORT}/api/trendy`);
   };
 
   useEffect(()=>{

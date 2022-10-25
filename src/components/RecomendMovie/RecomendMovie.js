@@ -14,6 +14,8 @@ function RecomendMovie () {
     const sliderRef = useRef();
     const movieRef = useRef();
 
+    const PORT = process.env.PORT || 8000;
+
     const movieDetail = useSelector((state) => state.movie.movieDetail);
 
 
@@ -38,7 +40,7 @@ function RecomendMovie () {
         }
     };
     const getApiMovie = async () => {
-        return await axios.get('http://localhost:8000/api/rating');
+        return await axios.get(`http://localhost:${PORT}/api/rating`);
     };
     useEffect(()=>{
         getApiMovie().then(res => {

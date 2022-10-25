@@ -11,10 +11,10 @@ function Intro(props) {
         playing={true}
         loop={true}
         width="100%"
-        height="100%"
+        height= "auto"
         volume={1}
         muted={isMuted}
-        url="https://vimeo.com/761342278"
+        url="https://firebasestorage.googleapis.com/v0/b/fir-b640d.appspot.com/o/files%2FElden%20Ring%20Opening%20Cinematic.mp4?alt=media&token=44592bca-f21c-436d-b831-641949180730"
         className="videoIntro"
       />
       <div className="infoIntro">

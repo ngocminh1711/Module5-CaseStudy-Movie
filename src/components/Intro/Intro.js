@@ -14,7 +14,7 @@ function Intro(props) {
         height= "auto"
         volume={1}
         muted={isMuted}
-        url="https://firebasestorage.googleapis.com/v0/b/fir-b640d.appspot.com/o/files%2FElden%20Ring%20Opening%20Cinematic.mp4?alt=media&token=44592bca-f21c-436d-b831-641949180730"
+        url="https://firebasestorage.googleapis.com/v0/b/ngocminh.appspot.com/o/files%2FElden%20Ring%20Opening%20Cinematic.mp4?alt=media&token=39726c6f-6f97-4c64-a390-cdb1e2558a0b"
         className="videoIntro"
       />
       <div className="infoIntro">

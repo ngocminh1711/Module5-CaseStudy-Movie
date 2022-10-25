@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import logo from "../../assets/img/395-logo.png";
-import {FaSearch} from "react-icons/fa";
 import {useEffect, useState} from "react";
 import SearchMovie from "../SearchMovie/SearchMovie";
-import {Outlet, useNavigate} from "react-router-dom"
+import { useNavigate} from "react-router-dom"
+import {MdLogin} from "react-icons/md"
+import { Link } from 'react-router-dom';
 
 function Navbar(props) {
     const [scrollY, setScrollY] = useState(0);
@@ -26,12 +27,19 @@ function Navbar(props) {
             style={scrollY < 5 ? {backgroundColor: 'transparent'} : {backgroundColor: 'var(--color-background)'}}>
             <div className="navContainer">
                 <div className="logo">
-                    <img onClick={()=> navigate('/')} src={logo} alt=""/>
+                    <img onClick={() => navigate('/')} src={logo} alt=""/>
                 </div>
                 <div>
                     <SearchMovie/>
                 </div>
-
+                <div className="navLogin">
+                    <div>
+                        <Link to={'/login'}>
+                            <label>LogIn</label>
+                            <MdLogin className='iconLogin'/>
+                        </Link>
+                    </div>
+                </div>
             </div>
 
         </Navigation>
@@ -70,6 +78,20 @@ const Navigation = styled.div`
         width: 100%;
       }
     }
+    .navLogin {
+      color: var(--color-white);
+      width: 50px;
+      height: 50px;
+      padding-top: 15px;
+      position: absolute;
+      right: 40px;
+      text-align: center;
+
+      &:hover {
+        transform: scale(1.1);
+        color: red;
+      }
+    }
 
     .navSearch {
       color: var(--color-white);
@@ -88,7 +110,8 @@ const Navigation = styled.div`
         transform: translateX(24px) translateY(10px);
         color: #bbb;
       }
-
+     
+      
       input {
         font-size: 14px;
         border: none;

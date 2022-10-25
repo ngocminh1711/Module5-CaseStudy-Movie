@@ -90,14 +90,14 @@ function CreateMovie() {
                     status: 'success',
                     mess: 'Tạo mới thành công! Về trang chủ...',
                 });
-                setTimeout(() => navigate('/home'), 1000);
+                setTimeout(() => navigate('/manager'), 1000);
             })
             .catch(err => {
                 console.log(err.message);
 
             });
     }
-    console.log(form)
+
 
     useEffect(() => {
         getGenre().then(res => setGenres(res.data.genres)).catch(err => console.log(err.message))

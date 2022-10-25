@@ -14,12 +14,14 @@ function SearchMovie() {
 
     let navigate = useNavigate();
 
+    const PORT = process.env.PORT || 8000;
+
 
     const handleChange = (e) => {
         setKeywordSearch(e.target.value)
     }
     let getApiMovieSearch = async () => {
-        return await axios.get(`http://localhost:8000/api/movie/search/${keywordSearch}`)
+        return await axios.get(`http://localhost:${PORT}/api/movie/search/${keywordSearch}`)
     }
     const handlePress = async (event) => {
         if (event.key === 'Enter') {

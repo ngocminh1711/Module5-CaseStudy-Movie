@@ -6,6 +6,7 @@ import {SmoothHorizontalScrolling} from '../../utils';
 import {useDispatch} from 'react-redux';
 import { getMovieDetail } from "../../features/movieSlice";
 
+const PORT = process.env.PORT || 8000;
 
 function MyMovie(props) {
 
@@ -15,7 +16,7 @@ function MyMovie(props) {
     const dispatch = useDispatch();
 
     const getApiMovie = async () => {
-        return await axios.get('http://localhost:8000/api/movie');
+        return await axios.get(`http://localhost:${PORT}/api/movie`);
     };
 
     useEffect(() => {

@@ -16,8 +16,14 @@ function MovieDetail(props) {
 
 
   const handlePlayMovie = (video) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     dispatch(getPlayVideo(video))
     navigate('/play-movie')
+    dispatch(clearMovieDetail())
+
   }
 
   const handleCloseBackdrop = () => {

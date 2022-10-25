@@ -23,6 +23,10 @@ function SearchMovie() {
     }
     const handlePress = async (event) => {
         if (event.key === 'Enter') {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth',
+            });
             dispatch(searchMovie(movie))
             navigate('/searchList')
         }

@@ -3,11 +3,11 @@ import logo from "../../assets/img/395-logo.png";
 import {FaSearch} from "react-icons/fa";
 import {useEffect, useState} from "react";
 import SearchMovie from "../SearchMovie/SearchMovie";
-import {Outlet} from "react-router-dom"
+import {Outlet, useNavigate} from "react-router-dom"
 
 function Navbar(props) {
     const [scrollY, setScrollY] = useState(0);
-
+    const navigate = useNavigate();
     const handleScrollY = () => {
         const scroll = window.scrollY || document.documentElement.scrollTop;
         setScrollY(scroll);
@@ -26,7 +26,7 @@ function Navbar(props) {
             style={scrollY < 5 ? {backgroundColor: 'transparent'} : {backgroundColor: 'var(--color-background)'}}>
             <div className="navContainer">
                 <div className="logo">
-                    <img src={logo} alt=""/>
+                    <img onClick={()=> navigate('/')} src={logo} alt=""/>
                 </div>
                 <div>
                     <SearchMovie/>

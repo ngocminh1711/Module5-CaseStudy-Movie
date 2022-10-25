@@ -1,12 +1,24 @@
 import styled, { keyframes } from "styled-components";
 import { useDispatch } from "react-redux";
-import { clearMovieDetail } from "../../features/movieSlice";
+import { clearMovieDetail, getPlayVideo } from "../../features/movieSlice";
 import Button from "@mui/material/Button";
 import {SlClose} from 'react-icons/sl';
+import {useNavigate} from "react-router-dom";
+
 
 function MovieDetail(props) {
-  const { movie, showModal } = props;
+  const { movies, showModal } = props;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+
+
+
+  const handlePlayMovie = (video) => {
+    dispatch(getPlayVideo(video))
+    navigate('/play-movie')
+  }
 
   const handleCloseBackdrop = () => {
     dispatch(clearMovieDetail());
@@ -14,19 +26,20 @@ function MovieDetail(props) {
 
   return (
     <>
-      {movie &&
-        movie.map((movie, index) => (
+      {movies &&
+        movies.map((movie, index) => (
           <MoviesDetailModel key={index}>
             <div
               className={`backdrop ${
                 showModal ? "showBackdrop" : "hideBackdrop"
               }`}
+
               onClick={handleCloseBackdrop}
             ></div>
             <div
               className={`modal ${showModal ? "showModal" : "hideModal"}`}
               style={{
-                backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.backdrop_path})`,
+                backgroundImage: `url(${movie.detail_image})`,
                 backgroundSize: "cover",
               }}
             >
@@ -51,14 +64,15 @@ function MovieDetail(props) {
                     {movie.overview}{" "}
                   </p>
                   <br />
-                  <Button variant="contained" color="error">
-                    Contained
+                  <Button variant="contained" onClick={() => handlePlayMovie(movie.video)} color="error">
+                    Play movie
                   </Button>
                 </div>
               </div>
             </div>
           </MoviesDetailModel>
         ))}
+
     </>
   );
 }

@@ -1,81 +1,80 @@
-import Navbar from "../Navbar/Navbar";
-import styled from 'styled-components';
-import Intro from "../Intro/Intro";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
-import {SmoothHorizontalScrolling} from "../../utils";
-import {useRef, useState} from "react";
-
-import {useDispatch, useSelector} from "react-redux";
-import MovieNotFound from "../MovieNotFound/MovieNotFound";
+import styled from "styled-components";
 import {getMovieDetail} from "../../features/movieSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useRef, useState} from "react";
+import {SmoothHorizontalScrolling} from "../../utils";
+import axios from "axios";
 import MovieDetail from "../movieDetail/MovieDetail";
 
 
-function SearchedMovieList() {
-    const [searchedMovie, setSearchedMovie] = useState()
-    const movieDetail = useSelector((state) => state.movie.movieDetail);
-
-    const movies = useSelector((state) => state.search.searchedMovie)
+function RecomendMovie () {
     const dispatch = useDispatch();
-
-
+    const [movie, setMovie] = useState([]);
     const sliderRef = useRef();
     const movieRef = useRef();
 
-    const handleGetDetailMovie = (movie) => {
-        console.log(movie)
-        dispatch(getMovieDetail(movie))
-    }
+    const movieDetail = useSelector((state) => state.movie.movieDetail);
 
-    const handleScrollLeft = () => {
-        let scrollLeft = sliderRef.current.scrollLeft;
-        if (scrollLeft > 0) {
-            SmoothHorizontalScrolling(sliderRef.current, 250, -movieRef.current.clientWidth * 2, sliderRef.current.scrollLeft)
-        }
-    };
+
+    const handleGetDetailMovie = (movie) => {
+        dispatch(getMovieDetail(movie))
+
+    }
 
     const handleScrollRight = () => {
         const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
         let scrollLeft = sliderRef.current.scrollLeft;
-        if (scrollLeft < maxScrollLeft) {
-            SmoothHorizontalScrolling(sliderRef.current, 250, movieRef.current.clientWidth * 2, sliderRef.current.scrollLeft)
+        if(scrollLeft < maxScrollLeft){
+            SmoothHorizontalScrolling(sliderRef.current, 250, movieRef.current.clientWidth*2, sliderRef.current.scrollLeft)
         }
     };
-    console.log(movies)
+
+
+    const handleScrollLeft = () => {
+        let scrollLeft = sliderRef.current.scrollLeft;
+        if(scrollLeft > 0){
+            SmoothHorizontalScrolling(sliderRef.current, 250, -movieRef.current.clientWidth*2, sliderRef.current.scrollLeft)
+        }
+    };
+    const getApiMovie = async () => {
+        return await axios.get('http://localhost:8000/api/rating');
+    };
+    useEffect(()=>{
+        getApiMovie().then(res => {
+            setMovie(res.data.movies)
+
+        })
+    }, []);
 
     return (
         <>
-            <Navbar/>
-            <Intro/>
-            { movies.length === 0 ? <div>
-                    <MovieNotFound/>
-            </div> :
             <MoviesRowContainer>
-                <h1 className="heading">Results Searched</h1>
+                <h1 className="heading">Recommend Movie</h1>
                 <MoviesSlider ref={sliderRef} style={{
-                    gridTemplateColumns: `repeat(${movies.length}, 300px)`
+                    gridTemplateColumns: `repeat(${movie.length}, 300px)`
                 }}>
-                    {movies && movies.map(movie => (
-                        <div key={movie._id} className="moviesItems" ref={movieRef} onClick={() => handleGetDetailMovie(movie)}>
-                            <img src={movie.backdrop_path} alt=""/>
-                            <div className="moviesName">{movie.original_title}</div>
+                    {movie && movie.map((item, index) => (
+                        <div key={index} className="moviesItems" ref={movieRef} onClick={() => handleGetDetailMovie(item)}>
+                            <img src={item.backdrop_path} alt="" />
+                            <div className="moviesName">{item.original_title}</div>
                         </div>
                     ))}
-
                 </MoviesSlider>
                 <div className="btnLeft" onClick={handleScrollLeft}>
-                    <FiChevronLeft/>
+                    <FiChevronLeft />
                 </div>
                 <div className="btnRight" onClick={handleScrollRight}>
-                    <FiChevronRight/>
+                    <FiChevronRight />
                 </div>
             </MoviesRowContainer>
-            }
-            <MovieDetail movies={movieDetail} showModal={movieDetail ? true : false } />
+            <MovieDetail movies ={movieDetail} showModal={movieDetail ? true : false } />
         </>
     )
-
 }
+
+export default RecomendMovie;
+
 
 const MoviesRowContainer = styled.div`
   background-color: var(--color-background);
@@ -104,18 +103,18 @@ const MoviesRowContainer = styled.div`
     transform: translateY(-20%);
 
     &:hover {
-      background-color: rbg(0, 0, 0, 0.8);
+        background-color : rbg(0, 0, 0, 0.8);
     }
 
     &:hover svg {
-      opacity: 1;
-      transform: scale(1.2);
+        opacity: 1;
+        transform: scale(1.2);
     }
 
     svg {
-      opacity: 0.7;
-      font-size: 50px;
-      transition: all 0.3s linear;
+        opacity: 0.7;
+        font-size: 50px;
+        transition: all 0.3s linear;
     }
   }
 
@@ -133,21 +132,21 @@ const MoviesRowContainer = styled.div`
     transform: translateY(-20%);
 
     &:hover {
-      background-color: rbg(0, 0, 0, 0.8);
+        background-color : rbg(0, 0, 0, 0.8);
     }
 
     &:hover svg {
-      opacity: 1;
-      transform: scale(1.2);
+        opacity: 1;
+        transform: scale(1.2);
     }
 
     svg {
-      opacity: 0.7;
-      font-size: 50px;
-      transition: all 0.3s linear;
+        opacity: 0.7;
+        font-size: 50px;
+        transition: all 0.3s linear;
     }
   }
-`;
+  `;
 
 const MoviesSlider = styled.div`
   display: grid;
@@ -191,17 +190,14 @@ const MoviesSlider = styled.div`
     }
 
     .moviesName {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 4px;
-      text-align: center;
-      font-size: 14px;
-      background-color: rbga(0, 0, 0, 0.5);
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 4px;
+        text-align: center;
+        font-size: 14px;
+        background-color: rbga(0,0,0, 1.4);
     }
   }
-`
-
-
-export default SearchedMovieList;
+`;
